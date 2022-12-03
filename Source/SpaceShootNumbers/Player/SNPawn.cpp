@@ -16,7 +16,8 @@ ASNPawn::ASNPawn()
 	// Sphere component
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetupAttachment(RootComponent);
-
+	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	
 	// Mesh component
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetupAttachment(SphereComp);
