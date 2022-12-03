@@ -6,6 +6,7 @@
 #include <Camera/CameraComponent.h>
 #include <Components/SphereComponent.h>
 #include <GameFramework/FloatingPawnMovement.h>
+#include <Components/StaticMeshComponent.h>
 
 // Sets default values
 ASNPawn::ASNPawn()
