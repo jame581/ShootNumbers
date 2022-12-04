@@ -26,13 +26,14 @@ ASNProjectile::ASNProjectile()
 	//Movement component
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
 
+	// Projectile will be destroy after 5 seconds
+	InitialLifeSpan = 5.0f;
 }
 
 // Called when the game starts or when spawned
 void ASNProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
