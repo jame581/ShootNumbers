@@ -6,7 +6,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "SNGameModeBase.generated.h"
 
-UDELEGATE(BlueprintAuthorityOnly)
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameOver, bool, bGameOver);
 
 /**
@@ -24,6 +23,6 @@ public:
 
 public:
 
-	FOnGameOver OnGameOverDelegate;
-	
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnGameOver OnGameOverDelegate;	
 };

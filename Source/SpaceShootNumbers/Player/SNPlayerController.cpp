@@ -4,6 +4,7 @@
 #include "SNPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpaceShootNumbers/SNGameModeBase.h"
+#include <GameFramework/PlayerController.h>
 
 void ASNPlayerController::PlayerDeath()
 {
