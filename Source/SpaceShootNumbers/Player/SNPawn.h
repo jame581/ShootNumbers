@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include <Engine/EngineTypes.h>
+#include "SpaceShootNumbers/Projectile/SNProjectile.h"
 #include "SNPawn.generated.h"
 
 class UCameraComponent;
@@ -11,6 +13,7 @@ class USpringArmComponent;
 class UStaticMeshComponent;
 class USphereComponent;
 class UFloatingPawnMovement;
+class USceneComponent;
 
 UCLASS()
 class SPACESHOOTNUMBERS_API ASNPawn : public APawn
@@ -22,12 +25,20 @@ public:
 	ASNPawn();
 
 protected:
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void MoveRight(float Value);
 
+	void StartFire();
+
+	void StopFire();
+	
+	void Fire();
+
 public:	
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -50,4 +61,19 @@ protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UFloatingPawnMovement* MovementComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	USceneComponent* ProjectileStartPosition;
+
+protected: // Properties
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire")
+	float RateOfFire;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Projectile Fire")
+	TSubclassOf<ASNProjectile> StarterProjectileClass;
+
+	FTimerHandle TimerHandle_TimeBetweenShots;
+
+	float LastFireTime;
 };

@@ -7,18 +7,20 @@
 #include <Components/SphereComponent.h>
 #include <GameFramework/FloatingPawnMovement.h>
 #include <Components/StaticMeshComponent.h>
+#include <Components/SceneComponent.h>
+#include <Engine/World.h>
 
 // Sets default values
 ASNPawn::ASNPawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Sphere component
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetupAttachment(RootComponent);
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	
+
 	// Mesh component
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetupAttachment(SphereComp);
@@ -29,11 +31,16 @@ ASNPawn::ASNPawn()
 	SpringArmComp->TargetArmLength = 400.0f;
 	SpringArmComp->bEnableCameraLag = true;
 	SpringArmComp->CameraLagSpeed = 1.0f;
-	//SpringArmComp->bUsePawnControlRotation = true;
 
 	// Camera component
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
 	CameraComp->SetupAttachment(SpringArmComp);
+
+	// Projectile start position component
+	ProjectileStartPosition = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileStartPosition"));
+	ProjectileStartPosition->SetupAttachment(SphereComp);
+	ProjectileStartPosition->SetVisibility(false);
+	ProjectileStartPosition->SetComponentTickEnabled(false);
 
 	//Movement component
 	MovementComp = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("MovementComp"));
@@ -43,12 +50,33 @@ ASNPawn::ASNPawn()
 void ASNPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void ASNPawn::MoveRight(float Value)
 {
 	AddMovementInput(GetActorRightVector(), Value);
+}
+
+void ASNPawn::StartFire()
+{
+	float firstDelay = FMath::Max((LastFireTime + RateOfFire) - GetWorld()->TimeSeconds, 0.f);
+
+  	GetWorldTimerManager().SetTimer(TimerHandle_TimeBetweenShots, this, &ASNPawn::Fire, RateOfFire, true, firstDelay);
+}
+
+void ASNPawn::StopFire()
+{
+	GetWorldTimerManager().ClearTimer(TimerHandle_TimeBetweenShots);
+}
+
+void ASNPawn::Fire()
+{
+	// Spawn a default weapon
+	FActorSpawnParameters spawnParams;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	GetWorld()->SpawnActor(StarterProjectileClass, &ProjectileStartPosition->GetComponentTransform(), spawnParams);
+	LastFireTime = GetWorld()->TimeSeconds;
 }
 
 // Called every frame
@@ -66,7 +94,8 @@ void ASNPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	// Axis for movement
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASNPawn::MoveRight);
 
-	// Jump action
-	//PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASNPawn::Jump);
+	// Fire action
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ASNPawn::StartFire);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ASNPawn::StopFire);
 }
 
