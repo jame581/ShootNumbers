@@ -14,4 +14,8 @@ class SPACESHOOTNUMBERS_API ASNPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+
+	UFUNCTION()
+	virtual void PlayerDeath();
 };

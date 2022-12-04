@@ -91,6 +91,8 @@ void ASNPawn::Death()
 	{
 		DisableInput(PlayerController);
 		StopFire();
+
+		PlayerController->PlayerDeath();
 	}
 }
 

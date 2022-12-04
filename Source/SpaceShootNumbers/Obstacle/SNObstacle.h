@@ -30,6 +30,9 @@ protected:
 	UFUNCTION()
 	virtual void OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UFUNCTION()
+	virtual void HandleGameOver(bool bGameOver);
+
 protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")

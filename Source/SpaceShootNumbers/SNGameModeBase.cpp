@@ -3,3 +3,7 @@
 
 #include "SNGameModeBase.h"
 
+void ASNGameModeBase::GameOver()
+{
+	OnGameOverDelegate.Broadcast(true);
+}

@@ -8,11 +8,13 @@
 #include <Components/TextRenderComponent.h>
 #include "SpaceShootNumbers/Projectile/SNProjectile.h"
 #include "SpaceShootNumbers/SpaceShootNumbers.h"
+#include <Kismet/GameplayStatics.h>
+#include "SpaceShootNumbers/SNGameModeBase.h"
 
 // Sets default values
 ASNObstacle::ASNObstacle()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
 	// Sphere component
@@ -30,7 +32,7 @@ ASNObstacle::ASNObstacle()
 	// Mesh component
 	TextRenderComp = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextRenderComp"));
 	TextRenderComp->SetupAttachment(BoxComp);
-	
+
 	//Movement component
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
 	MovementComp->ProjectileGravityScale = 0;
@@ -38,18 +40,24 @@ ASNObstacle::ASNObstacle()
 	MovementComp->MaxSpeed = 2000;
 	MovementComp->Velocity = FVector(-1, 0, 0);
 
-	// Projectile will be destroy after 20 seconds
-	InitialLifeSpan = 20.0f;
+	// Projectile will be destroy after 30 seconds
+	InitialLifeSpan = 30.0f;
 }
 
 // Called when the game starts or when spawned
 void ASNObstacle::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &ASNObstacle::OnOverlapBegin);
 	Health = FMath::RandRange(MinHealth, MaxHealth);
 	TextRenderComp->SetText(FText::FromString(FString::FromInt(Health)));
+
+	ASNGameModeBase* MyGameMode = Cast<ASNGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (IsValid(MyGameMode))
+	{
+		MyGameMode->OnGameOverDelegate.AddDynamic(this, &ASNObstacle::HandleGameOver);
+	}
 }
 
 void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -62,10 +70,18 @@ void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActo
 		Health--;
 		Health = FMath::Max(Health, 0);
 		TextRenderComp->SetText(FText::FromString(FString::FromInt(Health)));
-		
+
 		if (Health <= 0)
 		{
 			Destroy();
 		}
+	}
+}
+
+void ASNObstacle::HandleGameOver(bool bGameOver)
+{
+	if (bGameOver)
+	{
+		MovementComp->StopMovementImmediately();
 	}
 }
