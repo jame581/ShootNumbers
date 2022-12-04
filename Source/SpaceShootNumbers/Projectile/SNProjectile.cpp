@@ -5,7 +5,7 @@
 #include <Components/SphereComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include <GameFramework/ProjectileMovementComponent.h>
-//#include <ProjectileMovementComponent.h>
+#include "SpaceShootNumbers/SpaceShootNumbers.h"
 
 // Sets default values
 ASNProjectile::ASNProjectile()
@@ -17,6 +17,9 @@ ASNProjectile::ASNProjectile()
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetupAttachment(RootComponent);
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	SphereComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	//SphereComp->SetCollisionResponseToChannel(COLLISION_PROJECTILE, ECollisionResponse::ECR_Overlap);
+	SphereComp->SetGenerateOverlapEvents(true);
 	SphereComp->SetSphereRadius(26.0f);
 
 	// Mesh component
@@ -25,6 +28,9 @@ ASNProjectile::ASNProjectile()
 
 	//Movement component
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
+	MovementComp->InitialSpeed = 1000;
+	MovementComp->MaxSpeed = 2000;
+	MovementComp->ProjectileGravityScale = 0;
 
 	// Projectile will be destroy after 5 seconds
 	InitialLifeSpan = 5.0f;
