@@ -9,6 +9,8 @@
 #include <Components/StaticMeshComponent.h>
 #include <Components/SceneComponent.h>
 #include <Engine/World.h>
+#include "../Obstacle/SNObstacle.h"
+#include "SNPlayerController.h"
 
 // Sets default values
 ASNPawn::ASNPawn()
@@ -51,6 +53,8 @@ ASNPawn::ASNPawn()
 void ASNPawn::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &ASNPawn::OnOverlapBegin);
 }
 
 void ASNPawn::MoveRight(float Value)
@@ -78,6 +82,26 @@ void ASNPawn::Fire()
 
 	GetWorld()->SpawnActor(StarterProjectileClass, &ProjectileStartPosition->GetComponentTransform(), spawnParams);
 	LastFireTime = GetWorld()->TimeSeconds;
+}
+
+void ASNPawn::Death()
+{
+	ASNPlayerController* PlayerController = GetController<ASNPlayerController>();
+	if (IsValid(PlayerController))
+	{
+		DisableInput(PlayerController);
+		StopFire();
+	}
+}
+
+void ASNPawn::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ASNObstacle* Obstacle = Cast<ASNObstacle>(OtherActor);
+	if (IsValid(Obstacle))
+	{
+		Obstacle->Destroy();		
+		Death();
+	}
 }
 
 // Called every frame
