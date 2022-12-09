@@ -33,6 +33,9 @@ protected:
 	UFUNCTION()
 	virtual void HandleGameOver(bool bGameOver);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void ChangeObstacleColor();
+
 protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
