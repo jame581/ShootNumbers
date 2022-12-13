@@ -15,7 +15,7 @@ ASNProjectile::ASNProjectile()
 
 	// Sphere component
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
-	SphereComp->SetupAttachment(RootComponent);
+	SetRootComponent(SphereComp);
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	SphereComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	//SphereComp->SetCollisionResponseToChannel(COLLISION_PROJECTILE, ECollisionResponse::ECR_Overlap);

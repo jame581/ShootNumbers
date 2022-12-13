@@ -60,4 +60,7 @@ protected: // Properties
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Properties")
 	int32 MaxHealth;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Obstacle Properties")
+	int32 StartHealth;
 };

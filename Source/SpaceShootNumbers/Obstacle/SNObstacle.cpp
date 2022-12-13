@@ -19,7 +19,7 @@ ASNObstacle::ASNObstacle()
 
 	// Sphere component
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
-	BoxComp->SetupAttachment(RootComponent);
+	SetRootComponent(BoxComp);
 	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	BoxComp->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	//BoxComp->SetCollisionResponseToChannel(COLLISION_PROJECTILE, ECollisionResponse::ECR_Overlap);
@@ -51,6 +51,7 @@ void ASNObstacle::BeginPlay()
 
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &ASNObstacle::OnOverlapBegin);
 	Health = FMath::RandRange(MinHealth, MaxHealth);
+	StartHealth = Health;
 	TextRenderComp->SetText(FText::FromString(FString::FromInt(Health)));
 
 	ASNGameModeBase* MyGameMode = Cast<ASNGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
@@ -75,6 +76,12 @@ void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActo
 		ChangeObstacleColor();
 		if (Health <= 0)
 		{
+			ASNGameModeBase* MyGameMode = Cast<ASNGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+			if (IsValid(MyGameMode))
+			{
+				MyGameMode->PlayerScoreChanged(StartHealth);
+			}
+
 			Destroy();
 		}
 	}
