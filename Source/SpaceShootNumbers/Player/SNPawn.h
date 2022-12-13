@@ -11,7 +11,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class UStaticMeshComponent;
-class USphereComponent;
+class UBoxComponent;
 class UFloatingPawnMovement;
 class USceneComponent;
 
@@ -55,7 +55,7 @@ public:
 protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	USphereComponent* SphereComp;
+	UBoxComponent* BoxComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* MeshComp;

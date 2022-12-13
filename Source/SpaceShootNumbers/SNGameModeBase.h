@@ -7,6 +7,7 @@
 #include "SNGameModeBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameOver, bool, bGameOver);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerScoreChanged, int32, NewPlayerScore);
 
 /**
  * Space shoot number game mode base 
@@ -21,8 +22,14 @@ public:
 	UFUNCTION()
 	virtual void GameOver();
 
+	UFUNCTION()
+	virtual void PlayerScoreChanged(int32 NewPlayerScore);
+
 public:
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnGameOver OnGameOverDelegate;	
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnPlayerScoreChanged OnPlayerScoreChangedDelegate;
 };

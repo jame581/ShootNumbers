@@ -4,13 +4,13 @@
 #include "SNPawn.h"
 #include <GameFramework/SpringArmComponent.h>
 #include <Camera/CameraComponent.h>
-#include <Components/SphereComponent.h>
 #include <GameFramework/FloatingPawnMovement.h>
 #include <Components/StaticMeshComponent.h>
 #include <Components/SceneComponent.h>
 #include <Engine/World.h>
-#include "../Obstacle/SNObstacle.h"
+#include "SpaceShootNumbers/Obstacle/SNObstacle.h"
 #include "SNPlayerController.h"
+#include <Components/BoxComponent.h>
 
 // Sets default values
 ASNPawn::ASNPawn()
@@ -19,18 +19,18 @@ ASNPawn::ASNPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Sphere component
-	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
-	SphereComp->SetupAttachment(RootComponent);
-	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	SphereComp->SetGenerateOverlapEvents(true);
+	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("SphereComp"));
+	BoxComp->SetupAttachment(RootComponent);
+	BoxComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	BoxComp->SetGenerateOverlapEvents(true);
 
 	// Mesh component
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
-	MeshComp->SetupAttachment(SphereComp);
+	MeshComp->SetupAttachment(BoxComp);
 
 	// Spring arm component
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
-	SpringArmComp->SetupAttachment(SphereComp);
+	SpringArmComp->SetupAttachment(BoxComp);
 	SpringArmComp->TargetArmLength = 400.0f;
 	SpringArmComp->bEnableCameraLag = true;
 	SpringArmComp->CameraLagSpeed = 1.0f;
@@ -41,7 +41,7 @@ ASNPawn::ASNPawn()
 
 	// Projectile start position component
 	ProjectileStartPosition = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileStartPosition"));
-	ProjectileStartPosition->SetupAttachment(SphereComp);
+	ProjectileStartPosition->SetupAttachment(BoxComp);
 	ProjectileStartPosition->SetVisibility(false);
 	ProjectileStartPosition->SetComponentTickEnabled(false);
 
@@ -54,7 +54,7 @@ void ASNPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &ASNPawn::OnOverlapBegin);
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &ASNPawn::OnOverlapBegin);
 }
 
 void ASNPawn::MoveRight(float Value)

@@ -7,3 +7,8 @@ void ASNGameModeBase::GameOver()
 {
 	OnGameOverDelegate.Broadcast(true);
 }
+
+void ASNGameModeBase::PlayerScoreChanged(int32 NewPlayerScore)
+{
+	OnPlayerScoreChangedDelegate.Broadcast(NewPlayerScore);
+}
