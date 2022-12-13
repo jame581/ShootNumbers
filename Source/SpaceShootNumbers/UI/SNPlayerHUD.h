@@ -22,6 +22,7 @@ protected:
 
 	virtual void UpdatePlayerScore();
 
+	UFUNCTION()
 	virtual void HandleGameOver(bool bGameOver);
 
 public:
