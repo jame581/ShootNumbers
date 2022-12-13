@@ -22,6 +22,8 @@ protected:
 
 	virtual void UpdatePlayerScore();
 
+	virtual void HandleGameOver(bool bGameOver);
+
 public:
 
 	UFUNCTION(BlueprintCallable)

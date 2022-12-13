@@ -27,7 +27,6 @@ void ASNObstacleGenerator::BeginPlay()
 	{
 		MyGameMode->OnGameOverDelegate.AddDynamic(this, &ASNObstacleGenerator::HandleGameOver);
 	}
-
 }
 
 // Called every frame

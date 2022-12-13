@@ -26,6 +26,7 @@ void USNPlayerHUD::NativeConstruct()
 	if (IsValid(MyGameMode))
 	{
 		MyGameMode->OnPlayerScoreChangedDelegate.AddDynamic(this, &USNPlayerHUD::SetPlayerScore);
+		MyGameMode->OnGameOverDelegate.AddDynamic(this, &USNPlayerHUD::HandleGameOver);
 	}
 }
 
@@ -49,6 +50,11 @@ void USNPlayerHUD::UpdatePlayerScore()
 		FString PlayerScoreString = FString::FromInt(PlayerScore);
 		ScoreLabel->SetText(FText::FromString(PlayerScoreString));
 	}
+}
+
+void USNPlayerHUD::HandleGameOver(bool bGameOver)
+{
+	GetWorld()->GetTimerManager().ClearTimer(ElapsedTimeHandle);
 }
 
 void USNPlayerHUD::SetPlayerScore(int32 NewPlayerScore)
