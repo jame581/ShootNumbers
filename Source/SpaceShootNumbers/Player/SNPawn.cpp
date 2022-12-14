@@ -55,6 +55,8 @@ void ASNPawn::BeginPlay()
 	Super::BeginPlay();
 
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &ASNPawn::OnOverlapBegin);
+
+	StartFire();
 }
 
 void ASNPawn::MoveRight(float Value)
@@ -122,7 +124,7 @@ void ASNPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASNPawn::MoveRight);
 
 	// Fire action
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ASNPawn::StartFire);
-	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ASNPawn::StopFire);
+	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ASNPawn::StartFire);
+	//PlayerInputComponent->BindAction("Fire", IE_Released, this, &ASNPawn::StopFire);
 }
 
