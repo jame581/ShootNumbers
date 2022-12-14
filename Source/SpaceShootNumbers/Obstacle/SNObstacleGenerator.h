@@ -45,19 +45,19 @@ protected:
 
 protected: // Properties
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Generator Properties")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	float StartDelay;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Generator Properties")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	float MinDelayBetweenSpawn;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Generator Properties")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	float MaxDelayBetweenSpawn;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Generator Properties")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	AActor* SpawnPoint;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Generator Properties")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	TSubclassOf<ASNObstacle> ClassToSpawn;
 
 private:
