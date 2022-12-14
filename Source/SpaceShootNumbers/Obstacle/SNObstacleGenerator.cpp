@@ -83,7 +83,7 @@ void ASNObstacleGenerator::FinishSpawnObstacleChunk()
 	}
 }
 
-void ASNObstacleGenerator::HandleGameOver(bool bGameOver)
+void ASNObstacleGenerator::HandleGameOver()
 {
 	StopSpawnObstacles();
 }

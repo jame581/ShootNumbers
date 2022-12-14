@@ -6,7 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "SNGameModeBase.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameOver, bool, bGameOver);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnGameOver);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerScoreChanged, int32, NewPlayerScore);
 
 /**

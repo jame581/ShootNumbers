@@ -87,10 +87,7 @@ void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActo
 	}
 }
 
-void ASNObstacle::HandleGameOver(bool bGameOver)
+void ASNObstacle::HandleGameOver()
 {
-	if (bGameOver)
-	{
-		MovementComp->StopMovementImmediately();
-	}
+	MovementComp->StopMovementImmediately();
 }

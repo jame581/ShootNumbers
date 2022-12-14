@@ -41,7 +41,7 @@ protected:
 	virtual void FinishSpawnObstacleChunk();
 
 	UFUNCTION()
-	virtual void HandleGameOver(bool bGameOver);
+	virtual void HandleGameOver();
 
 protected: // Properties
 

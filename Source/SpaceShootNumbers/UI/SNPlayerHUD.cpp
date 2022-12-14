@@ -52,7 +52,7 @@ void USNPlayerHUD::UpdatePlayerScore()
 	}
 }
 
-void USNPlayerHUD::HandleGameOver(bool bGameOver)
+void USNPlayerHUD::HandleGameOver()
 {
 	GetWorld()->GetTimerManager().ClearTimer(ElapsedTimeHandle);
 }
