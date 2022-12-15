@@ -15,7 +15,7 @@ void USNPlayerHUD::NativeConstruct()
 
 	if (IsValid(ScoreLabel))
 	{
-		ScoreLabel->SetText(FText::FromString(TEXT("Score: 0")));
+		ScoreLabel->SetText(FText::FromString(TEXT("0")));
 	}
 
 	if (IsValid(TimeLabel))
