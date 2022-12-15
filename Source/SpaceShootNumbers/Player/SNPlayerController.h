@@ -18,11 +18,14 @@ protected:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void LoadInGameUI();
+
+	void ShowGameOverUI();
+
+	void ShowInGameUI();
 	
 public:
-
-	//UFUNCTION()
-	//virtual void HandleGameOver(int32 InPlayTimeInSecods, int32 InPlayerScore);
 
 	UFUNCTION()
 	virtual void PlayerDeath();
@@ -35,6 +38,20 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FString GetPlayTimeInSecodsFormatted() const;
+
+protected:
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class USNPlayerHUD> InGameUIClass;
+
+	UPROPERTY(BlueprintReadWrite, Category = "UI")
+	class USNPlayerHUD* InGameUI;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class UUserWidget> GameOverUIClass;
+
+	UPROPERTY(BlueprintReadWrite, Category = "UI")
+	class UUserWidget* GameOverUI;
 
 private: // Properties
 

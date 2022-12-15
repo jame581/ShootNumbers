@@ -4,24 +4,44 @@
 #include "SNPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpaceShootNumbers/SNGameModeBase.h"
+#include "SpaceShootNumbers/UI/SNPlayerHUD.h"
 #include <GameFramework/PlayerController.h>
+#include <UMG/Public/Blueprint/UserWidget.h>
 
 void ASNPlayerController::BeginPlay()
 {
-	//ASNGameModeBase* MyGameMode = Cast<ASNGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	//if (IsValid(MyGameMode))
-	//{
-	//	MyGameMode->OnGameOverDelegate.AddDynamic(this, &ASNPlayerController::HandleGameOver);
-	//}
+	LoadInGameUI();
+	ShowInGameUI();
 }
 
-//void ASNPlayerController::HandleGameOver()
-//{
-//	//PlayerDeath();
-//
-//	//PlayerScore = InPlayerScore;
-//	//PlayTimeInSecods = InPlayTimeInSecods;
-//}
+void ASNPlayerController::LoadInGameUI()
+{
+	if (IsValid(InGameUIClass))
+	{
+		InGameUI = CreateWidget<USNPlayerHUD>(this, InGameUIClass);
+	}
+
+	if (IsValid(GameOverUIClass))
+	{
+		GameOverUI = CreateWidget<UUserWidget>(this, GameOverUIClass);
+	}
+}
+
+void ASNPlayerController::ShowGameOverUI()
+{
+	if (IsValid(GameOverUI))
+	{
+		GameOverUI->AddToViewport();
+	}
+}
+
+void ASNPlayerController::ShowInGameUI()
+{
+	if (IsValid(InGameUI))
+	{
+		InGameUI->AddToViewport();
+	}
+}
 
 void ASNPlayerController::PlayerDeath()
 {
@@ -31,6 +51,8 @@ void ASNPlayerController::PlayerDeath()
 		MyGameMode->GameOver();
 		DisableInput(this);
 	}
+
+	ShowGameOverUI();
 }
 
 int32 ASNPlayerController::GetPlayerScore() const
