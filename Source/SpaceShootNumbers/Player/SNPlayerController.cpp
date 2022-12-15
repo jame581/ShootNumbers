@@ -10,6 +10,9 @@
 
 void ASNPlayerController::BeginPlay()
 {
+	PlayerScore = 0;
+	PlayTimeInSecods = 0;
+
 	LoadInGameUI();
 	ShowInGameUI();
 }
@@ -50,6 +53,12 @@ void ASNPlayerController::PlayerDeath()
 	{
 		MyGameMode->GameOver();
 		DisableInput(this);
+	}
+
+	if (IsValid(InGameUI))
+	{
+		PlayerScore = InGameUI->GetPlayerScore();
+		PlayTimeInSecods = InGameUI->GetPlayTimeInSecods();
 	}
 
 	ShowGameOverUI();

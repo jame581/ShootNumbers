@@ -28,10 +28,13 @@ protected:
 public:
 
 	UFUNCTION(BlueprintCallable)
-	void SetPlayerScore(int32 NewPlayerScore);
+	void AddPlayerScore(int32 AddScore);
 
 	UFUNCTION(BlueprintCallable)
-	int32 GetPlayTimeInSecods();
+	int32 GetPlayerScore() const;
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetPlayTimeInSecods() const;
 
 protected: // Properties
 

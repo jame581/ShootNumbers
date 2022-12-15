@@ -8,7 +8,7 @@ void ASNGameModeBase::GameOver()
 	OnGameOverDelegate.Broadcast();
 }
 
-void ASNGameModeBase::PlayerScoreChanged(int32 NewPlayerScore)
+void ASNGameModeBase::PlayerScoreChanged(int32 AddScore)
 {
-	OnPlayerScoreChangedDelegate.Broadcast(NewPlayerScore);
+	OnPlayerScoreChangedDelegate.Broadcast(AddScore);
 }

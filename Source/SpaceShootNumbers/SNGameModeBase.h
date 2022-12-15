@@ -7,7 +7,7 @@
 #include "SNGameModeBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnGameOver);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerScoreChanged, int32, NewPlayerScore);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerScoreChanged, int32, AddScore);
 
 /**
  * Space shoot number game mode base 
@@ -23,7 +23,7 @@ public:
 	virtual void GameOver();
 
 	UFUNCTION()
-	virtual void PlayerScoreChanged(int32 NewPlayerScore);
+	virtual void PlayerScoreChanged(int32 AddScore);
 
 public:
 

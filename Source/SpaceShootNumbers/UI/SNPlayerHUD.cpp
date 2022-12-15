@@ -10,6 +10,9 @@ void USNPlayerHUD::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	PlayerScore = 0;
+	PlayTimeInSeconds = 0;
+
 	if (IsValid(ScoreLabel))
 	{
 		ScoreLabel->SetText(FText::FromString(TEXT("Score: 0")));
@@ -25,7 +28,7 @@ void USNPlayerHUD::NativeConstruct()
 	ASNGameModeBase* MyGameMode = Cast<ASNGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	if (IsValid(MyGameMode))
 	{
-		MyGameMode->OnPlayerScoreChangedDelegate.AddDynamic(this, &USNPlayerHUD::SetPlayerScore);
+		MyGameMode->OnPlayerScoreChangedDelegate.AddDynamic(this, &USNPlayerHUD::AddPlayerScore);
 		MyGameMode->OnGameOverDelegate.AddDynamic(this, &USNPlayerHUD::HandleGameOver);
 	}
 }
@@ -57,13 +60,18 @@ void USNPlayerHUD::HandleGameOver()
 	GetWorld()->GetTimerManager().ClearTimer(ElapsedTimeHandle);
 }
 
-void USNPlayerHUD::SetPlayerScore(int32 NewPlayerScore)
+void USNPlayerHUD::AddPlayerScore(int32 AddScore)
 {
-	PlayerScore = NewPlayerScore;
+	PlayerScore += AddScore;
 	UpdatePlayerScore();
 }
 
-int32 USNPlayerHUD::GetPlayTimeInSecods()
+int32 USNPlayerHUD::GetPlayerScore() const
+{
+	return PlayerScore;
+}
+
+int32 USNPlayerHUD::GetPlayTimeInSecods() const
 {
 	return PlayTimeInSeconds;
 }
