@@ -8,6 +8,8 @@
 
 class USNSaveGame;
 
+struct FSNPlayerScore;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSaveGameFinished, const FString&, SlotName, const int32, UserIndex, bool, bSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoadGameFinished, USNSaveGame*, LoadedGameData);
 
@@ -36,6 +38,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void LoadGame();
 
+	UFUNCTION(BlueprintCallable)
+	FSNPlayerScore GetHighScoreData() const;
+
 private:
 
 	UFUNCTION()
@@ -52,4 +57,9 @@ public: // Delegates
 	
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnLoadGameFinished OnLoadGameFinished;
+
+private: // Properties
+
+	UPROPERTY(Transient)
+	USNSaveGame* LastLoadedData;
 };

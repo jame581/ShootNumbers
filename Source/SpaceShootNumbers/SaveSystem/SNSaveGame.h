@@ -17,7 +17,7 @@ class SPACESHOOTNUMBERS_API USNSaveGame : public USaveGame
 public:
 
 	USNSaveGame();
-	
+		
 public: // Properties
 
 	UPROPERTY(VisibleAnywhere, Category = "Save Info")

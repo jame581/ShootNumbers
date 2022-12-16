@@ -4,6 +4,7 @@
 #include "SNSaveGameSubsystem.h"
 #include "SNSaveGame.h"
 #include <Kismet/GameplayStatics.h>
+#include "SpaceShootNumbers/Game/SNPlayerScore.h"
 
 void USNSaveGameSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -40,6 +41,24 @@ void USNSaveGameSubsystem::LoadGame()
 	UGameplayStatics::AsyncLoadGameFromSlot(TEXT("SaveSlot"), 0, LoadedDelegate);
 }
 
+FSNPlayerScore USNSaveGameSubsystem::GetHighScoreData() const
+{
+	FSNPlayerScore HighPlayerScore;
+	HighPlayerScore.PlayerScore = 0;
+	HighPlayerScore.PlayTimeInSecods = 0;
+
+	if (IsValid(LastLoadedData))
+	{
+		HighPlayerScore.PlayerScore = LastLoadedData->PlayerScore;
+		HighPlayerScore.PlayTimeInSecods = LastLoadedData->PlayTimeInSeconds;
+
+		FTimespan CurrentPlayTime = FTimespan::FromSeconds(LastLoadedData->PlayTimeInSeconds);
+		HighPlayerScore.PlayTimeInSecodsFormatted = FString::Printf(TEXT("%02d:%02d:%02d"), CurrentPlayTime.GetHours(), CurrentPlayTime.GetMinutes(), CurrentPlayTime.GetSeconds());
+	}
+
+	return HighPlayerScore;
+}
+
 void USNSaveGameSubsystem::SaveGameFinished(const FString& SlotName, const int32 UserIndex, bool bSuccess)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Save game finished: save slot name - %s, User index - %d, bSuccess - %d"), *SlotName, UserIndex, bSuccess);
@@ -52,6 +71,7 @@ void USNSaveGameSubsystem::LoadGameFinished(const FString& SlotName, const int32
 
 	if (USNSaveGame* LoadedData = Cast<USNSaveGame>(LoadedGameData))
 	{
+		LastLoadedData = LoadedData;
 		OnLoadGameFinished.Broadcast(LoadedData);
 	}
 }
