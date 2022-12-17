@@ -14,6 +14,7 @@ class UStaticMeshComponent;
 class UBoxComponent;
 class UFloatingPawnMovement;
 class USceneComponent;
+class USoundBase;
 
 struct FHitResult;
 
@@ -84,6 +85,9 @@ protected: // Properties
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire", meta = (ClampMin = "0.3", ClampMax = "5.0", UIMin = "0.3", UIMax = "5.0"))
 	float MinimumRateOfFire;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire")
+	USoundBase* ShootSound;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile Fire")
 	TSubclassOf<ASNProjectile> StarterProjectileClass;

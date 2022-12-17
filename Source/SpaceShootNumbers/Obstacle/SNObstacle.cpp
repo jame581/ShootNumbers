@@ -89,6 +89,12 @@ void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActo
 				MyGameMode->PlayerScoreChanged(StartHealth);
 			}
 			SpawnUpgrade();
+
+			if (DestroySound)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), DestroySound, 1, 1, 0);
+			}
+
 			Destroy();
 		}
 	}

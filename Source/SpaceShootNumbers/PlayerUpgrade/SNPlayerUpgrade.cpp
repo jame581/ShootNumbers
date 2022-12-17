@@ -6,6 +6,7 @@
 #include <Components/BoxComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include <GameFramework/ProjectileMovementComponent.h>
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ASNPlayerUpgrade::ASNPlayerUpgrade()
@@ -48,6 +49,12 @@ void ASNPlayerUpgrade::OnOverlapBegin(class UPrimitiveComponent* newComp, class 
 	if (IsValid(Player))
 	{
 		Player->ApplyUpgrade(UpgradeInfo);
+
+		if (PickUpSound)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), PickUpSound, 0.8, 1, 0);
+		}
+
 		Destroy();
 	}
 }

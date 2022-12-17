@@ -10,6 +10,7 @@
 class UStaticMeshComponent;
 class UBoxComponent;
 class UProjectileMovementComponent;
+class USoundBase;
 
 UCLASS()
 class SPACESHOOTNUMBERS_API ASNPlayerUpgrade : public AActor
@@ -42,6 +43,9 @@ protected: // Components
 
 protected: // Properties
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Upgrade")
 	FSNUpgradeInfo UpgradeInfo;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Upgrade")
+	USoundBase* PickUpSound;
 };

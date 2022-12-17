@@ -12,6 +12,7 @@
 #include <Components/SceneComponent.h>
 #include <Components/BoxComponent.h>
 #include <Engine/World.h>
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ASNPawn::ASNPawn()
@@ -84,6 +85,11 @@ void ASNPawn::Fire()
 
 	GetWorld()->SpawnActor(StarterProjectileClass, &ProjectileStartPosition->GetComponentTransform(), spawnParams);
 	LastFireTime = GetWorld()->TimeSeconds;
+
+	if (ShootSound)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), ShootSound, 1, 1, 0);
+	}
 }
 
 void ASNPawn::Death()

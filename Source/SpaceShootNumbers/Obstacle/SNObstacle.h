@@ -12,6 +12,7 @@ class UProjectileMovementComponent;
 class UTextRenderComponent;
 class UPrimitiveComponent;
 class ASNPlayerUpgrade;
+class USoundBase;
 
 UCLASS()
 class SPACESHOOTNUMBERS_API ASNObstacle : public AActor
@@ -69,6 +70,9 @@ protected: // Properties
 
 	UPROPERTY(BlueprintReadOnly, Category = "Obstacle Properties")
 	int32 StartHealth;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Properties")
+	USoundBase* DestroySound;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Player Upgrade", meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
 	float ChangeToSpawn;
