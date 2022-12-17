@@ -2,15 +2,16 @@
 
 
 #include "SNPawn.h"
+#include "SpaceShootNumbers/Obstacle/SNObstacle.h"
+#include "SpaceShootNumbers/PlayerUpgrade/SNUpgradeInfo.h"
+#include "SNPlayerController.h"
 #include <GameFramework/SpringArmComponent.h>
 #include <Camera/CameraComponent.h>
 #include <GameFramework/FloatingPawnMovement.h>
 #include <Components/StaticMeshComponent.h>
 #include <Components/SceneComponent.h>
-#include <Engine/World.h>
-#include "SpaceShootNumbers/Obstacle/SNObstacle.h"
-#include "SNPlayerController.h"
 #include <Components/BoxComponent.h>
+#include <Engine/World.h>
 
 // Sets default values
 ASNPawn::ASNPawn()
@@ -122,9 +123,14 @@ void ASNPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	// Axis for movement
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASNPawn::MoveRight);
-
-	// Fire action
-	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ASNPawn::StartFire);
-	//PlayerInputComponent->BindAction("Fire", IE_Released, this, &ASNPawn::StopFire);
 }
 
+void ASNPawn::ApplyUpgrade(FSNUpgradeInfo UpgradeInfo)
+{
+	switch (UpgradeInfo.UpgradeType)
+	{
+	case EUpgradeType::FireRate:
+		RateOfFire = UpgradeInfo.RateOfFire;
+		break;
+	}
+}

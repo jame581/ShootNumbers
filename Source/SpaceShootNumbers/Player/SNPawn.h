@@ -23,6 +23,7 @@ class SPACESHOOTNUMBERS_API ASNPawn : public APawn
 	GENERATED_BODY()
 
 public:
+
 	// Sets default values for this pawn's properties
 	ASNPawn();
 
@@ -51,6 +52,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION()
+	virtual void ApplyUpgrade(FSNUpgradeInfo UpgradeInfo);
 
 protected: // Components
 
