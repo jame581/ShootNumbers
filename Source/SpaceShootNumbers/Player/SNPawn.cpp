@@ -135,11 +135,6 @@ void ASNPawn::ApplyUpgrade(FSNUpgradeInfo UpgradeInfo)
 
 void ASNPawn::UpgradeFireRate(float FireRateUpgrade)
 {
-	if (RateOfFire == MinimumRateOfFire)
-	{
-		return;
-	}
-
 	RateOfFire -= FireRateUpgrade;
 
 	if (RateOfFire < MinimumRateOfFire)

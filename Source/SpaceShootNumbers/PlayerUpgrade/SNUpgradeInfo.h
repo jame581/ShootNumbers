@@ -17,7 +17,8 @@ USTRUCT(BlueprintType)
 struct FSNUpgradeInfo
 {
     GENERATED_BODY()
-
+	
+	// Amount of decrease player rate of fire
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Upgrade Info", meta = (ClampMin = "0.1", ClampMax = "2.0", UIMin = "0.1", UIMax = "2.0"))
 	float RateOfFire;
 
