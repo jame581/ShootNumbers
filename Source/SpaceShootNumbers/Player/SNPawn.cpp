@@ -19,7 +19,9 @@ ASNPawn::ASNPawn()
 {
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
+	
+	MinimumRateOfFire = 0.3f;
+	
 	// Sphere component
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("SphereComp"));
 	BoxComp->SetupAttachment(RootComponent);
