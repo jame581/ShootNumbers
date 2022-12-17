@@ -23,6 +23,8 @@ public:
 	// Sets default values for this actor's properties
 	ASNObstacle();
 
+	void IncreaseHealthRange(int32 HealthRangeAdd);
+
 protected:
 
 	// Called when the game starts or when spawned

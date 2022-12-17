@@ -82,6 +82,9 @@ protected: // Properties
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire")
 	float RateOfFire;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire", meta = (ClampMin = "0.3", ClampMax = "5.0", UIMin = "0.3", UIMax = "5.0"))
+	float MinimumRateOfFire;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile Fire")
 	TSubclassOf<ASNProjectile> StarterProjectileClass;
 

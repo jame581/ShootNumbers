@@ -45,6 +45,12 @@ ASNObstacle::ASNObstacle()
 	InitialLifeSpan = 30.0f;
 }
 
+void ASNObstacle::IncreaseHealthRange(int32 HealthRangeAdd)
+{
+	MinHealth += HealthRangeAdd;
+	MaxHealth += HealthRangeAdd;
+}
+
 // Called when the game starts or when spawned
 void ASNObstacle::BeginPlay()
 {
@@ -96,7 +102,7 @@ void ASNObstacle::HandleGameOver()
 void ASNObstacle::SpawnUpgrade()
 {
 	float RandomChance = FMath::RandRange(0, 1);
-	if (RandomChance >= ChangeToSpawn)
+	if (RandomChance <= ChangeToSpawn)
 	{
 		FActorSpawnParameters SpawnParameters;
 		GetWorld()->SpawnActor<ASNPlayerUpgrade>(UpgradeClassToSpawn, GetActorLocation(), GetActorRotation(), SpawnParameters);

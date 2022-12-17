@@ -22,8 +22,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void SpawnNewWave();
@@ -43,6 +41,8 @@ protected:
 	UFUNCTION()
 	virtual void HandleGameOver();
 
+	virtual void RaiseDifficulty();
+
 protected: // Properties
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
@@ -54,6 +54,12 @@ protected: // Properties
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	float MaxDelayBetweenSpawn;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties", meta = (ClampMin = "5.0", ClampMax = "50.0", UIMin = "5.0", UIMax = "50.0"))
+	float DifficultyRaiseInterval;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties", meta = (ClampMin = "1", ClampMax = "100", UIMin = "1", UIMax = "100"))
+	int32 DifficultyRaiseValue;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	AActor* SpawnPoint;
 
@@ -64,5 +70,9 @@ private:
 
 	FTimerHandle TimerHandle_TimeBetweenSpawn;
 
+	FTimerHandle TimerHandle_IncreaseDifficulty;
+
 	TArray<ASNObstacle*> ObstacleChunk;
+
+	int32 HealthRangeAdd;
 };

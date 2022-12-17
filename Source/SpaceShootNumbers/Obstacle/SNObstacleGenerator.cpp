@@ -10,11 +10,14 @@
 ASNObstacleGenerator::ASNObstacleGenerator()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	StartDelay = 1.f;
 	MinDelayBetweenSpawn = 2.f;
 	MaxDelayBetweenSpawn = 5.f;
+	HealthRangeAdd = 0;
+	DifficultyRaiseValue = 2;
+	DifficultyRaiseInterval = 10.f;
 }
 
 // Called when the game starts or when spawned
@@ -27,13 +30,8 @@ void ASNObstacleGenerator::BeginPlay()
 	{
 		MyGameMode->OnGameOverDelegate.AddDynamic(this, &ASNObstacleGenerator::HandleGameOver);
 	}
-}
 
-// Called every frame
-void ASNObstacleGenerator::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
+	GetWorldTimerManager().SetTimer(TimerHandle_IncreaseDifficulty, this, &ASNObstacleGenerator::RaiseDifficulty, DifficultyRaiseInterval, true, 10.f);
 }
 
 void ASNObstacleGenerator::SpawnNewWave()
@@ -53,6 +51,7 @@ void ASNObstacleGenerator::StartSpawnObstacles()
 void ASNObstacleGenerator::StopSpawnObstacles()
 {
 	GetWorldTimerManager().ClearTimer(TimerHandle_TimeBetweenSpawn);
+	GetWorldTimerManager().ClearTimer(TimerHandle_IncreaseDifficulty);
 }
 
 void ASNObstacleGenerator::CreateObstacleChunk()
@@ -71,6 +70,7 @@ void ASNObstacleGenerator::CreateObstacleChunk()
 			ObstacleChunk.Add(Obstacle);
 			NewSpawnLocation.Y += 100.f;
 			TransformToSpawn.SetLocation(NewSpawnLocation);
+			Obstacle->IncreaseHealthRange(HealthRangeAdd);
 		}
 	}
 }
@@ -86,4 +86,9 @@ void ASNObstacleGenerator::FinishSpawnObstacleChunk()
 void ASNObstacleGenerator::HandleGameOver()
 {
 	StopSpawnObstacles();
+}
+
+void ASNObstacleGenerator::RaiseDifficulty()
+{
+	HealthRangeAdd += DifficultyRaiseValue;
 }
