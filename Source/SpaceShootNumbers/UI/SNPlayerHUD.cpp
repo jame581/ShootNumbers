@@ -13,6 +13,11 @@ void USNPlayerHUD::NativeConstruct()
 	PlayerScore = 0;
 	PlayTimeInSeconds = 0;
 
+	if (IsValid(UpgradeInfoLabel))
+	{
+		UpgradeInfoLabel->Visibility = ESlateVisibility::Hidden;
+	}
+
 	if (IsValid(ScoreLabel))
 	{
 		ScoreLabel->SetText(FText::FromString(TEXT("0")));

@@ -79,3 +79,11 @@ FString ASNPlayerController::GetPlayTimeInSecodsFormatted() const
 	FTimespan CurrentPlayTime = FTimespan::FromSeconds(PlayTimeInSecods);
 	return FString::Printf(TEXT("%02d:%02d:%02d"), CurrentPlayTime.GetHours(), CurrentPlayTime.GetMinutes(), CurrentPlayTime.GetSeconds());
 }
+
+void ASNPlayerController::NotifyHUDUpgradeApplied(FSNUpgradeInfo UpgradeInfo) const
+{
+	if (IsValid(InGameUI))
+	{
+		InGameUI->UpgradeApplied(UpgradeInfo);
+	}
+}

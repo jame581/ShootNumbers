@@ -39,6 +39,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FString GetPlayTimeInSecodsFormatted() const;
 
+	UFUNCTION(BlueprintCallable)
+	void NotifyHUDUpgradeApplied(FSNUpgradeInfo UpgradeInfo) const;
+
 protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")

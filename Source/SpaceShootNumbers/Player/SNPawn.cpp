@@ -17,7 +17,7 @@
 ASNPawn::ASNPawn()
 {
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	// Sphere component
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("SphereComp"));
@@ -68,7 +68,6 @@ void ASNPawn::MoveRight(float Value)
 void ASNPawn::StartFire()
 {
 	float firstDelay = FMath::Max((LastFireTime + RateOfFire) - GetWorld()->TimeSeconds, 0.f);
-
   	GetWorldTimerManager().SetTimer(TimerHandle_TimeBetweenShots, this, &ASNPawn::Fire, RateOfFire, true, firstDelay);
 }
 
@@ -109,13 +108,6 @@ void ASNPawn::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* O
 	}
 }
 
-// Called every frame
-void ASNPawn::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 // Called to bind functionality to input
 void ASNPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -130,7 +122,26 @@ void ASNPawn::ApplyUpgrade(FSNUpgradeInfo UpgradeInfo)
 	switch (UpgradeInfo.UpgradeType)
 	{
 	case EUpgradeType::FireRate:
-		RateOfFire = UpgradeInfo.RateOfFire;
+		UpgradeFireRate(UpgradeInfo.RateOfFire);
 		break;
 	}
+
+	ASNPlayerController* PlayerController = GetController<ASNPlayerController>();
+	if (IsValid(PlayerController))
+	{
+		PlayerController->NotifyHUDUpgradeApplied(UpgradeInfo);
+	}
+}
+
+void ASNPawn::UpgradeFireRate(float FireRateUpgrade)
+{
+	RateOfFire -= FireRateUpgrade;
+
+	if (RateOfFire < 0.2)
+	{
+		RateOfFire = 0.2f;
+	}
+
+	StopFire();
+	StartFire();
 }

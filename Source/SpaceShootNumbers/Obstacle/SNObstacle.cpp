@@ -10,6 +10,7 @@
 #include <GameFramework/ProjectileMovementComponent.h>
 #include <Components/TextRenderComponent.h>
 #include <Kismet/GameplayStatics.h>
+#include "../PlayerUpgrade/SNPlayerUpgrade.h"
 
 // Sets default values
 ASNObstacle::ASNObstacle()
@@ -81,7 +82,7 @@ void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActo
 			{
 				MyGameMode->PlayerScoreChanged(StartHealth);
 			}
-
+			SpawnUpgrade();
 			Destroy();
 		}
 	}
@@ -90,4 +91,14 @@ void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActo
 void ASNObstacle::HandleGameOver()
 {
 	MovementComp->StopMovementImmediately();
+}
+
+void ASNObstacle::SpawnUpgrade()
+{
+	float RandomChance = FMath::RandRange(0, 1);
+	if (RandomChance >= ChangeToSpawn)
+	{
+		FActorSpawnParameters SpawnParameters;
+		GetWorld()->SpawnActor<ASNPlayerUpgrade>(UpgradeClassToSpawn, GetActorLocation(), GetActorRotation(), SpawnParameters);
+	}
 }

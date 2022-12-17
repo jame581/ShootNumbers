@@ -2,9 +2,10 @@
 
 
 #include "SNPlayerUpgrade.h"
+#include "SpaceShootNumbers/Player/SNPawn.h"
 #include <Components/BoxComponent.h>
 #include <Components/StaticMeshComponent.h>
-#include "SpaceShootNumbers/Player/SNPawn.h"
+#include <GameFramework/ProjectileMovementComponent.h>
 
 // Sets default values
 ASNPlayerUpgrade::ASNPlayerUpgrade()
@@ -22,6 +23,15 @@ ASNPlayerUpgrade::ASNPlayerUpgrade()
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetupAttachment(BoxComp);
 
+	//Movement component
+	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
+	MovementComp->ProjectileGravityScale = 0;
+	MovementComp->InitialSpeed = 1000;
+	MovementComp->MaxSpeed = 1000;
+	MovementComp->Velocity = FVector(-1, 0, 0);
+
+	// Upgrade will be destroy after 30 seconds
+	InitialLifeSpan = 30.0f;
 }
 
 // Called when the game starts or when spawned
@@ -37,6 +47,7 @@ void ASNPlayerUpgrade::OnOverlapBegin(class UPrimitiveComponent* newComp, class 
 	ASNPawn* Player = Cast<ASNPawn>(OtherActor);
 	if (IsValid(Player))
 	{
+		Player->ApplyUpgrade(UpgradeInfo);
 		Destroy();
 	}
 }

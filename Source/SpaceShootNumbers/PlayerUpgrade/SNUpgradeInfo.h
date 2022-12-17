@@ -18,8 +18,8 @@ struct FSNUpgradeInfo
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Upgrade Info")
-    int32 RateOfFire;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Upgrade Info", meta = (ClampMin = "0.1", ClampMax = "2.0", UIMin = "0.1", UIMax = "2.0"))
+	float RateOfFire;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Upgrade Info")
 	TEnumAsByte<EUpgradeType> UpgradeType;

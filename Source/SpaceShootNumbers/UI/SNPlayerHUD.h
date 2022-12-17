@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "SpaceShootNumbers/PlayerUpgrade/SNUpgradeInfo.h"
 #include "SNPlayerHUD.generated.h"
 
 /**
@@ -36,6 +37,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32 GetPlayTimeInSecods() const;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpgradeApplied(FSNUpgradeInfo UpgradeInfo);
+
 protected: // Properties
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
@@ -43,6 +47,9 @@ protected: // Properties
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock* TimeLabel;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UTextBlock* UpgradeInfoLabel;
 	
 	UPROPERTY(BlueprintReadOnly)
 	int32 PlayerScore;

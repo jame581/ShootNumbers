@@ -9,6 +9,7 @@
 
 class UStaticMeshComponent;
 class UBoxComponent;
+class UProjectileMovementComponent;
 
 UCLASS()
 class SPACESHOOTNUMBERS_API ASNPlayerUpgrade : public AActor
@@ -35,6 +36,9 @@ protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* MeshComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UProjectileMovementComponent* MovementComp;
 
 protected: // Properties
 

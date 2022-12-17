@@ -11,6 +11,7 @@ class UStaticMeshComponent;
 class UProjectileMovementComponent;
 class UTextRenderComponent;
 class UPrimitiveComponent;
+class ASNPlayerUpgrade;
 
 UCLASS()
 class SPACESHOOTNUMBERS_API ASNObstacle : public AActor
@@ -35,6 +36,9 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void ChangeObstacleColor();
+
+	UFUNCTION(BlueprintCallable)
+	void SpawnUpgrade();
 
 protected: // Components
 
@@ -63,4 +67,10 @@ protected: // Properties
 
 	UPROPERTY(BlueprintReadOnly, Category = "Obstacle Properties")
 	int32 StartHealth;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Player Upgrade", meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
+	float ChangeToSpawn;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Player Upgrade")
+	TSubclassOf<ASNPlayerUpgrade> UpgradeClassToSpawn;
 };
