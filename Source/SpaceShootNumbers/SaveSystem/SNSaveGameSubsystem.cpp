@@ -69,9 +69,12 @@ void USNSaveGameSubsystem::LoadGameFinished(const FString& SlotName, const int32
 {
 	UE_LOG(LogTemp, Warning, TEXT("Load game finished: save slot name - %s, User index - %d"), *SlotName, UserIndex);
 
-	if (USNSaveGame* LoadedData = Cast<USNSaveGame>(LoadedGameData))
+	USNSaveGame* LoadedData = Cast<USNSaveGame>(LoadedGameData);
+
+	if (IsValid(LoadedData))
 	{
 		LastLoadedData = LoadedData;
-		OnLoadGameFinished.Broadcast(LoadedData);
 	}
+	
+	OnLoadGameFinished.Broadcast(LoadedData);
 }
