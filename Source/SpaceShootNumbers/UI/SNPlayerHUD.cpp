@@ -2,7 +2,7 @@
 
 
 #include "SNPlayerHUD.h"
-#include "SpaceShootNumbers/SNGameModeBase.h"
+#include "SpaceShootNumbers/Game/SNGameModeBase.h"
 #include <UMG/Public/Components/TextBlock.h>
 #include <Kismet/GameplayStatics.h>
 

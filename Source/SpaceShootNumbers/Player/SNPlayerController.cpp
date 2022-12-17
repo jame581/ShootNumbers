@@ -3,7 +3,7 @@
 
 #include "SNPlayerController.h"
 #include "Kismet/GameplayStatics.h"
-#include "SpaceShootNumbers/SNGameModeBase.h"
+#include "SpaceShootNumbers/Game/SNGameModeBase.h"
 #include "SpaceShootNumbers/UI/SNPlayerHUD.h"
 #include <GameFramework/PlayerController.h>
 #include <UMG/Public/Blueprint/UserWidget.h>

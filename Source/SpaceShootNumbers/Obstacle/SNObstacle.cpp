@@ -2,14 +2,14 @@
 
 
 #include "SNObstacle.h"
+#include "SpaceShootNumbers/Projectile/SNProjectile.h"
+#include "SpaceShootNumbers/SpaceShootNumbers.h"
+#include "SpaceShootNumbers/Game/SNGameModeBase.h"
 #include <Components/BoxComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include <GameFramework/ProjectileMovementComponent.h>
 #include <Components/TextRenderComponent.h>
-#include "SpaceShootNumbers/Projectile/SNProjectile.h"
-#include "SpaceShootNumbers/SpaceShootNumbers.h"
 #include <Kismet/GameplayStatics.h>
-#include "SpaceShootNumbers/SNGameModeBase.h"
 
 // Sets default values
 ASNObstacle::ASNObstacle()

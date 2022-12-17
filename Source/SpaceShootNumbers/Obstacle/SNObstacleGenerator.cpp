@@ -4,7 +4,7 @@
 #include "SNObstacleGenerator.h"
 #include "SNObstacle.h"
 #include "Kismet/GameplayStatics.h"
-#include "../SNGameModeBase.h"
+#include "SpaceShootNumbers/Game/SNGameModeBase.h"
 
 // Sets default values
 ASNObstacleGenerator::ASNObstacleGenerator()
