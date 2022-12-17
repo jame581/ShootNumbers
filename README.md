@@ -1,6 +1,6 @@
 # Space Shoot Numbers
 
-3D gmae developed with Unreal Engine 5.1. I'd like to try create a little game in couple days to get familiar with a new Unreal Engine version and also create a small example that can help someone :)
+3D game developed with Unreal Engine 5.1. I'd like to try create a little game in couple days to get familiar with a new Unreal Engine version and also create a small example that can help someone :)
 
 ### Game describe
 
@@ -35,6 +35,7 @@ I used free assets for this game. Game objects are from Engine content (cubes an
 ## Author
 
 * **Jan Mesarč** - *Creator* - [jame581](https://jame581.azurewebsites.net/)
+Do you like this project and want me support? Great! I really appreciate it and makes me very happy if you buy [Buy Me A Coffee](https://www.buymeacoffee.com/jame581).
 
 ## Screenshots
 
