@@ -2,6 +2,8 @@
 
 3D game developed with Unreal Engine 5.1. I'd like to try create a little game in couple days to get familiar with a new Unreal Engine version and also create a small example that can help someone :)
 
+[You can play the game on itch.io!](https://jame581.itch.io/shoot-numbers)
+
 ### Game describe
 
 Player control cube and can move to the left or to the right side. Player try to shoot through the lines of obstacles. Every destroyed obstacle adds score to player. Obstacles duration increases by time. Player also can pick up a upgrade for increase a fire rate.
