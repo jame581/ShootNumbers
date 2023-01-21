@@ -37,7 +37,8 @@ I used free assets for this game. Game objects are from Engine content (cubes an
 ## Author
 
 * **Jan Mesarč** - *Creator* - [jame581](https://jame581.azurewebsites.net/)
-Do you like this project and want me support? Great! I really appreciate it and makes me very happy if you buy [Buy Me A Coffee](https://www.buymeacoffee.com/jame581).
+* **Do you want support my work, my dreams?** - [Buy me a coffee](https://www.buymeacoffee.com/jame581)
+* **Take a look on my other games** - [itch.io](https://jame581.itch.io/)
 
 ## Screenshots
 
