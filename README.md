@@ -1,6 +1,6 @@
 # Space Shoot Numbers
 
-3D game developed with Unreal Engine 5.1. I'd like to try create a little game in couple days to get familiar with a new Unreal Engine version and also create a small example that can help someone :)
+3D game developed with Unreal Engine 5.2. I'd like to try create a little game in couple days to get familiar with a new Unreal Engine version and also create a small example that can help someone :)
 
 [You can play the game on itch.io!](https://jame581.itch.io/shoot-numbers)
 
@@ -26,7 +26,7 @@ Player control cube and can move to the left or to the right side. Player try to
 Software what you need is:
 
 * [Visual Studio 2022 (Version 17.0 or better)](https://visualstudio.microsoft.com/)
-* [Unreal Engine 5.1 (or better)](https://www.unrealengine.com/)
+* [Unreal Engine 5.2 (or better)](https://www.unrealengine.com/)
 
 That's it :)
 
