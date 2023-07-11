@@ -12,15 +12,21 @@ void USNPlayerHUD::NativeConstruct()
 
 	PlayerScore = 0;
 	PlayTimeInSeconds = 0;
+	PlayerDamage = 1;
 
 	if (IsValid(UpgradeInfoLabel))
 	{
-		UpgradeInfoLabel->Visibility = ESlateVisibility::Hidden;
+		UpgradeInfoLabel->SetVisibility(ESlateVisibility::Hidden);
 	}
 
 	if (IsValid(ScoreLabel))
 	{
 		ScoreLabel->SetText(FText::FromString(TEXT("0")));
+	}
+
+	if (IsValid(DamageLabel))
+	{
+		DamageLabel->SetText(FText::FromString(TEXT("1")));
 	}
 
 	if (IsValid(TimeLabel))
@@ -71,9 +77,24 @@ void USNPlayerHUD::AddPlayerScore(int32 AddScore)
 	UpdatePlayerScore();
 }
 
+void USNPlayerHUD::UpdatePlayerDamage(int32 PlayerDamageIncrease)
+{
+	if (IsValid(DamageLabel))
+	{
+		PlayerDamage += PlayerDamageIncrease;
+		FString PlayerDamageString = FString::FromInt(PlayerDamage);
+		DamageLabel->SetText(FText::FromString(PlayerDamageString));
+	}
+}
+
 int32 USNPlayerHUD::GetPlayerScore() const
 {
 	return PlayerScore;
+}
+
+int32 USNPlayerHUD::GetPlayerDamage() const
+{
+	return PlayerDamage;
 }
 
 int32 USNPlayerHUD::GetPlayTimeInSecods() const
