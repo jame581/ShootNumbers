@@ -21,6 +21,7 @@ ASNPawn::ASNPawn()
 	PrimaryActorTick.bCanEverTick = false;
 	
 	MinimumRateOfFire = 0.3f;
+	ProjectileDamage = 1;
 	
 	// Sphere component
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("SphereComp"));
@@ -85,7 +86,17 @@ void ASNPawn::Fire()
 	FActorSpawnParameters spawnParams;
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	GetWorld()->SpawnActor(StarterProjectileClass, &ProjectileStartPosition->GetComponentTransform(), spawnParams);
+	AActor* ActorProjectile = GetWorld()->SpawnActor(StarterProjectileClass, &ProjectileStartPosition->GetComponentTransform(), spawnParams);
+
+	if (IsValid(ActorProjectile))
+	{
+		ASNProjectile* NewProjectile = Cast<ASNProjectile>(ActorProjectile);
+		if (IsValid(NewProjectile))
+		{
+			NewProjectile->SetProjectileDamage(ProjectileDamage);
+		}
+	}
+
 	LastFireTime = GetWorld()->TimeSeconds;
 
 	if (ShootSound)
@@ -132,6 +143,10 @@ void ASNPawn::ApplyUpgrade(FSNUpgradeInfo UpgradeInfo)
 	case EUpgradeType::FireRate:
 		UpgradeFireRate(UpgradeInfo.RateOfFire);
 		break;
+
+	case EUpgradeType::DamageUpdate:
+		UpgradeDamage(UpgradeInfo.PlayerDamage);
+		break;
 	}
 
 	ASNPlayerController* PlayerController = GetController<ASNPlayerController>();
@@ -152,4 +167,9 @@ void ASNPawn::UpgradeFireRate(float FireRateUpgrade)
 
 	StopFire();
 	StartFire();
+}
+
+void ASNPawn::UpgradeDamage(int32 NewDamage)
+{
+	ProjectileDamage += NewDamage;
 }

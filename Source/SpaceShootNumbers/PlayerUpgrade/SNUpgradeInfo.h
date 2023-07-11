@@ -6,11 +6,11 @@
 #include "SNUpgradeInfo.generated.h"
 
 
-UENUM()
+UENUM(BlueprintType)
 enum EUpgradeType
 {
 	FireRate			UMETA(DisplayName = "Fire Rate"),
-	DamageIncrease		UMETA(DisplayName = "Damage increase"),
+	DamageUpdate		UMETA(DisplayName = "Damage update"),
 };
 
 
@@ -24,7 +24,7 @@ struct FSNUpgradeInfo
 	float RateOfFire;
 
 	// Amount of player damage
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Upgrade Info", meta = (ClampMin = "1", ClampMax = "5", UIMin = "1", UIMax = "5", EditCondition = "UpgradeType == EUpgradeType::DamageIncrease", EditConditionHides))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Upgrade Info", meta = (ClampMin = "1", ClampMax = "5", UIMin = "1", UIMax = "5", EditCondition = "UpgradeType == EUpgradeType::DamageUpdate", EditConditionHides))
 	int32 PlayerDamage = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Upgrade Info")

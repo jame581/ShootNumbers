@@ -58,6 +58,8 @@ private:
 
 	void UpgradeFireRate(float FireRateUpgrade);
 
+	void UpgradeDamage(int32 DamageUpgrade);
+
 protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
@@ -82,6 +84,9 @@ protected: // Properties
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire")
 	float RateOfFire;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire")
+	float ProjectileDamage;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile Fire", meta = (ClampMin = "0.3", ClampMax = "5.0", UIMin = "0.3", UIMax = "5.0"))
 	float MinimumRateOfFire;
