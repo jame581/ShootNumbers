@@ -75,9 +75,10 @@ void ASNObstacle::OnOverlapBegin(class UPrimitiveComponent* newComp, class AActo
 	ASNProjectile* Projectile = Cast<ASNProjectile>(OtherActor);
 	if (IsValid(Projectile))
 	{
+		int32 ProjectileDamage = Projectile->GetProjectileDamage();
 		Projectile->Destroy();
 
-		Health--;
+		Health -= ProjectileDamage;
 		Health = FMath::Max(Health, 0);
 		TextRenderComp->SetText(FText::FromString(FString::FromInt(Health)));
 		ChangeObstacleColor();
@@ -111,6 +112,7 @@ void ASNObstacle::SpawnUpgrade()
 	if (RandomChance <= ChangeToSpawn)
 	{
 		FActorSpawnParameters SpawnParameters;
-		GetWorld()->SpawnActor<ASNPlayerUpgrade>(UpgradeClassToSpawn, GetActorLocation(), GetActorRotation(), SpawnParameters);
+		TSubclassOf<ASNPlayerUpgrade> SelectedPlayerUpgrade = UpgradeClassesToSpawn[FMath::RandRange(0, UpgradeClassesToSpawn.Num() - 1)];
+		GetWorld()->SpawnActor<ASNPlayerUpgrade>(SelectedPlayerUpgrade, GetActorLocation(), GetActorRotation(), SpawnParameters);
 	}
 }
