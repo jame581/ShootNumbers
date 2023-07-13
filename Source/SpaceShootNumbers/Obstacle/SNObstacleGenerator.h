@@ -43,6 +43,9 @@ protected:
 
 	virtual void RaiseDifficulty();
 
+	UFUNCTION()
+	void UpgradeApplied(FSNUpgradeInfo UpgradeInfo);
+
 protected: // Properties
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
@@ -59,6 +62,9 @@ protected: // Properties
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties", meta = (ClampMin = "1", ClampMax = "100", UIMin = "1", UIMax = "100"))
 	int32 DifficultyRaiseValue;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties", meta = (ClampMin = "1", ClampMax = "100", UIMin = "1", UIMax = "100"))
+	int32 DifficultyRaiseOnPlayerUpgrade;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Obstacle Generator Properties")
 	AActor* SpawnPoint;

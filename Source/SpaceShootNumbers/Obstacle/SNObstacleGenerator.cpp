@@ -5,6 +5,9 @@
 #include "SNObstacle.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpaceShootNumbers/Game/SNGameModeBase.h"
+#include "SpaceShootNumbers/Player/SNPlayerController.h"
+#include "SpaceShootNumbers/Player/SNPawn.h"
+#include "SpaceShootNumbers/PlayerUpgrade/SNUpgradeInfo.h"
 
 // Sets default values
 ASNObstacleGenerator::ASNObstacleGenerator()
@@ -17,6 +20,7 @@ ASNObstacleGenerator::ASNObstacleGenerator()
 	MaxDelayBetweenSpawn = 5.f;
 	HealthRangeAdd = 0;
 	DifficultyRaiseValue = 2;
+	DifficultyRaiseOnPlayerUpgrade = 2;
 	DifficultyRaiseInterval = 10.f;
 }
 
@@ -29,6 +33,7 @@ void ASNObstacleGenerator::BeginPlay()
 	if (IsValid(MyGameMode))
 	{
 		MyGameMode->OnGameOverDelegate.AddDynamic(this, &ASNObstacleGenerator::HandleGameOver);
+		MyGameMode->OnPlayerUpgraded.AddDynamic(this, &ASNObstacleGenerator::UpgradeApplied);
 	}
 
 	GetWorldTimerManager().SetTimer(TimerHandle_IncreaseDifficulty, this, &ASNObstacleGenerator::RaiseDifficulty, DifficultyRaiseInterval, true, 10.f);
@@ -91,4 +96,15 @@ void ASNObstacleGenerator::HandleGameOver()
 void ASNObstacleGenerator::RaiseDifficulty()
 {
 	HealthRangeAdd += DifficultyRaiseValue;
+}
+
+void ASNObstacleGenerator::UpgradeApplied(FSNUpgradeInfo UpgradeInfo)
+{
+	switch (UpgradeInfo.UpgradeType)
+	{
+	case FireRate:
+	case DamageUpdate:
+		DifficultyRaiseValue += DifficultyRaiseOnPlayerUpgrade;
+		break;
+	}
 }

@@ -80,10 +80,11 @@ FString ASNPlayerController::GetPlayTimeInSecodsFormatted() const
 	return FString::Printf(TEXT("%02d:%02d:%02d"), CurrentPlayTime.GetHours(), CurrentPlayTime.GetMinutes(), CurrentPlayTime.GetSeconds());
 }
 
-void ASNPlayerController::NotifyHUDUpgradeApplied(FSNUpgradeInfo UpgradeInfo) const
+void ASNPlayerController::PlayerUpgradeApplied(FSNUpgradeInfo UpgradeInfo) const
 {
-	if (IsValid(InGameUI))
+	ASNGameModeBase* MyGameMode = Cast<ASNGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (IsValid(MyGameMode))
 	{
-		InGameUI->UpgradeApplied(UpgradeInfo);
+		MyGameMode->UpgradeApplied(UpgradeInfo);
 	}
 }

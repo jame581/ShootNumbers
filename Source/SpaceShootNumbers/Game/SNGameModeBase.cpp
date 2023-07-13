@@ -12,3 +12,8 @@ void ASNGameModeBase::PlayerScoreChanged(int32 AddScore)
 {
 	OnPlayerScoreChangedDelegate.Broadcast(AddScore);
 }
+
+void ASNGameModeBase::UpgradeApplied(FSNUpgradeInfo UpgradeInfo)
+{
+	OnPlayerUpgraded.Broadcast(UpgradeInfo);
+}

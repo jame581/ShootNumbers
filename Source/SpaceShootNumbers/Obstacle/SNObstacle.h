@@ -78,5 +78,5 @@ protected: // Properties
 	float ChangeToSpawn;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Obstacle Player Upgrade")
-	TSubclassOf<ASNPlayerUpgrade> UpgradeClassToSpawn;
+	TArray<TSubclassOf<ASNPlayerUpgrade>> UpgradeClassesToSpawn;
 };

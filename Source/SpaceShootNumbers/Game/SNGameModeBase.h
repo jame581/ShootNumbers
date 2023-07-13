@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "SpaceShootNumbers/PlayerUpgrade/SNUpgradeInfo.h"
 #include "SNGameModeBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnGameOver);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerScoreChanged, int32, AddScore);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerUpgraded, FSNUpgradeInfo, UpgradeInfo);
 
 /**
  * Space shoot number game mode base 
@@ -25,6 +27,9 @@ public:
 	UFUNCTION()
 	virtual void PlayerScoreChanged(int32 AddScore);
 
+	UFUNCTION()
+	void UpgradeApplied(FSNUpgradeInfo UpgradeInfo);
+
 public:
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
@@ -32,4 +37,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnPlayerScoreChanged OnPlayerScoreChangedDelegate;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnPlayerUpgraded OnPlayerUpgraded;
 };

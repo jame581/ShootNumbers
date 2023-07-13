@@ -27,6 +27,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	int32 GetProjectileDamage() const;
+
+	void SetProjectileDamage(int32 NewDamage);
+
 protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
@@ -37,4 +41,10 @@ protected: // Components
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UProjectileMovementComponent* MovementComp;
+
+	
+protected: // Properties
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Projectile Properties")
+	int32 Damage;
 };

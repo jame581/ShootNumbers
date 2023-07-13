@@ -34,6 +34,8 @@ ASNProjectile::ASNProjectile()
 
 	// Projectile will be destroy after 5 seconds
 	InitialLifeSpan = 5.0f;
+
+	Damage = 1;
 }
 
 // Called when the game starts or when spawned
@@ -47,5 +49,15 @@ void ASNProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+int32 ASNProjectile::GetProjectileDamage() const
+{
+	return Damage;
+}
+
+void ASNProjectile::SetProjectileDamage(int32 NewDamage)
+{
+	Damage = NewDamage;
 }
 

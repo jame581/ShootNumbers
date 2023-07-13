@@ -32,7 +32,13 @@ public:
 	void AddPlayerScore(int32 AddScore);
 
 	UFUNCTION(BlueprintCallable)
+	void UpdatePlayerDamage(int32 PlayerDamageIncrease);
+
+	UFUNCTION(BlueprintCallable)
 	int32 GetPlayerScore() const;
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetPlayerDamage() const;
 
 	UFUNCTION(BlueprintCallable)
 	int32 GetPlayTimeInSecods() const;
@@ -49,10 +55,16 @@ protected: // Properties
 	class UTextBlock* TimeLabel;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UTextBlock* DamageLabel;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock* UpgradeInfoLabel;
 	
 	UPROPERTY(BlueprintReadOnly)
 	int32 PlayerScore;
+			
+	UPROPERTY(BlueprintReadOnly)
+	int32 PlayerDamage;
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 PlayTimeInSeconds;

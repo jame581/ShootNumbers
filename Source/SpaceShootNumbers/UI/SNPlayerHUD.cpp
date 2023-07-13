@@ -3,6 +3,8 @@
 
 #include "SNPlayerHUD.h"
 #include "SpaceShootNumbers/Game/SNGameModeBase.h"
+#include "SpaceShootNumbers/Player/SNPlayerController.h"
+#include "SpaceShootNumbers/Player/SNPawn.h"
 #include <UMG/Public/Components/TextBlock.h>
 #include <Kismet/GameplayStatics.h>
 
@@ -12,15 +14,21 @@ void USNPlayerHUD::NativeConstruct()
 
 	PlayerScore = 0;
 	PlayTimeInSeconds = 0;
+	PlayerDamage = 1;
 
 	if (IsValid(UpgradeInfoLabel))
 	{
-		UpgradeInfoLabel->Visibility = ESlateVisibility::Hidden;
+		UpgradeInfoLabel->SetVisibility(ESlateVisibility::Hidden);
 	}
 
 	if (IsValid(ScoreLabel))
 	{
 		ScoreLabel->SetText(FText::FromString(TEXT("0")));
+	}
+
+	if (IsValid(DamageLabel))
+	{
+		DamageLabel->SetText(FText::FromString(TEXT("1")));
 	}
 
 	if (IsValid(TimeLabel))
@@ -35,6 +43,7 @@ void USNPlayerHUD::NativeConstruct()
 	{
 		MyGameMode->OnPlayerScoreChangedDelegate.AddDynamic(this, &USNPlayerHUD::AddPlayerScore);
 		MyGameMode->OnGameOverDelegate.AddDynamic(this, &USNPlayerHUD::HandleGameOver);
+		MyGameMode->OnPlayerUpgraded.AddDynamic(this, &USNPlayerHUD::UpgradeApplied);
 	}
 }
 
@@ -71,9 +80,24 @@ void USNPlayerHUD::AddPlayerScore(int32 AddScore)
 	UpdatePlayerScore();
 }
 
+void USNPlayerHUD::UpdatePlayerDamage(int32 PlayerDamageIncrease)
+{
+	if (IsValid(DamageLabel))
+	{
+		PlayerDamage += PlayerDamageIncrease;
+		FString PlayerDamageString = FString::FromInt(PlayerDamage);
+		DamageLabel->SetText(FText::FromString(PlayerDamageString));
+	}
+}
+
 int32 USNPlayerHUD::GetPlayerScore() const
 {
 	return PlayerScore;
+}
+
+int32 USNPlayerHUD::GetPlayerDamage() const
+{
+	return PlayerDamage;
 }
 
 int32 USNPlayerHUD::GetPlayTimeInSecods() const
