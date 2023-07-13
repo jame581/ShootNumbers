@@ -20,7 +20,7 @@ ASNPawn::ASNPawn()
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 	
-	MinimumRateOfFire = 0.3f;
+	MinimumRateOfFire = 0.5f;
 	ProjectileDamage = 1;
 	
 	// Sphere component
