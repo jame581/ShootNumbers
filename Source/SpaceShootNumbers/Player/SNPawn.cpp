@@ -152,7 +152,7 @@ void ASNPawn::ApplyUpgrade(FSNUpgradeInfo UpgradeInfo)
 	ASNPlayerController* PlayerController = GetController<ASNPlayerController>();
 	if (IsValid(PlayerController))
 	{
-		PlayerController->NotifyHUDUpgradeApplied(UpgradeInfo);
+		PlayerController->PlayerUpgradeApplied(UpgradeInfo);
 	}
 }
 

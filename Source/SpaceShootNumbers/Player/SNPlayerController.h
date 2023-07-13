@@ -40,7 +40,7 @@ public:
 	FString GetPlayTimeInSecodsFormatted() const;
 
 	UFUNCTION(BlueprintCallable)
-	void NotifyHUDUpgradeApplied(FSNUpgradeInfo UpgradeInfo) const;
+	void PlayerUpgradeApplied(FSNUpgradeInfo UpgradeInfo) const;
 
 protected:
 

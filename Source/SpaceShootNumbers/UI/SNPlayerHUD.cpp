@@ -3,6 +3,8 @@
 
 #include "SNPlayerHUD.h"
 #include "SpaceShootNumbers/Game/SNGameModeBase.h"
+#include "SpaceShootNumbers/Player/SNPlayerController.h"
+#include "SpaceShootNumbers/Player/SNPawn.h"
 #include <UMG/Public/Components/TextBlock.h>
 #include <Kismet/GameplayStatics.h>
 
@@ -41,6 +43,7 @@ void USNPlayerHUD::NativeConstruct()
 	{
 		MyGameMode->OnPlayerScoreChangedDelegate.AddDynamic(this, &USNPlayerHUD::AddPlayerScore);
 		MyGameMode->OnGameOverDelegate.AddDynamic(this, &USNPlayerHUD::HandleGameOver);
+		MyGameMode->OnPlayerUpgraded.AddDynamic(this, &USNPlayerHUD::UpgradeApplied);
 	}
 }
 
